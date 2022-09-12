@@ -11,7 +11,11 @@ export class Button {
     }
   }
 
-  onSignal() {
-      this.el.classList.toggle('painted-button');
+  setState(state: boolean) {
+    if (state) {
+      this.el.classList.add('painted-button');
+    } else {
+      this.el.classList.remove('painted-button');
+    }
   }
 }

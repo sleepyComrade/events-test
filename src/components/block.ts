@@ -1,33 +1,30 @@
 import { Button } from "./button";
 
 export class Block {
-  el
-  list: Button [];
-  qty: number;
-  onClick: () => void;
-  onSignal: () => void;
-  constructor(parent: HTMLElement) {
-    this.el = document.createElement('div');
-    this.el.className = 'block-wrap';
+  el;
+  list: Button[];
+  onClick: (index: number) => void;
+  constructor(parent: HTMLElement, btnQty: number) {
+    this.el = document.createElement("div");
+    this.el.className = "block-wrap";
     parent.append(this.el);
-    this.qty = 7;
     this.list = [];
 
-    for (let i = 0; i < this.qty; i++) {
+    for (let i = 0; i < btnQty; i++) {
       const btn = new Button(this.el);
       this.list.push(btn);
     }
 
-    this.list.forEach(el => {
+    this.list.forEach((el, i) => {
       el.onClick = () => {
-        this.onClick();
-      }
-    })
+        this.onClick(i);
+      };
+    });
+  }
 
-    this.onSignal = () => {
-      this.list.forEach(el => {
-        el.onSignal();
-      })
-    }
+  setState(states: boolean []) {
+    this.list.forEach((el, i) => {
+        el.setState(states[i]);
+    });
   }
 }
